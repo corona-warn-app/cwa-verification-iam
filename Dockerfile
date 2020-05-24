@@ -1,6 +1,8 @@
 FROM jboss/keycloak:10.0.1 as build
 
 ARG WORK_DIR=/build
+WORKDIR ${WORK_DIR}
+
 RUN mkdir /opt/jboss/keycloak/themes/cwa
 RUN cp -r /opt/jboss/keycloak/themes/base /opt/jboss/keycloak/themes/cwa/
 RUN cd ${WORK_DIR}
