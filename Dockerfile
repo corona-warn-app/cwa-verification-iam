@@ -7,7 +7,6 @@ COPY . ${WORK_DIR}/
 
 RUN mkdir /opt/jboss/keycloak/themes/cwa
 RUN cp -r /opt/jboss/keycloak/themes/base/* /opt/jboss/keycloak/themes/cwa/
-RUN cd ${WORK_DIR}
 RUN cp -r ${WORK_DIR}/src/themes/cwa/login /opt/jboss/keycloak/themes/cwa/
 
 EXPOSE 8080
