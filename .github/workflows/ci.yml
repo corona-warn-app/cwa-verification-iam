@@ -3,11 +3,6 @@ on:
   push:
     branches:
     - master
-  pull_request:
-    types:
-    - opened
-    - synchronize
-    - reopened
 jobs:
   package:
     runs-on: ubuntu-latest
@@ -16,5 +11,5 @@ jobs:
     - run: echo ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_ACTOR} --password-stdin
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: docker build --file Dockerfile --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest .
+    - run: docker build --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest .
     - run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest
