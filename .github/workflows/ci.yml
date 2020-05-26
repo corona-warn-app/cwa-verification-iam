@@ -3,13 +3,24 @@ on:
   push:
     branches:
     - master
+  pull_request:
+    types:
+    - opened
+    - synchronize
+    - reopened
 jobs:
   package:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: echo ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_ACTOR} --password-stdin
+    - name: docker build
+      if: ${{ github.event_name == 'pull_request' }}
+      run: docker build .
+    - name: docker build and push
+      if: ${{ github.event_name == 'push' }}
+      run: |
+        echo ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_ACTOR} --password-stdin
+        docker build --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest .
+        docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: docker build --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest .
-    - run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest
