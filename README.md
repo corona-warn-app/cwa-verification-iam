@@ -22,9 +22,6 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
 
 ## Status
 ![ci](https://github.com/corona-warn-app/cwa-verification-iam/workflows/ci/badge.svg)
-[![quality gate](https://sonarcloud.io/api/project_badges/measure?project=corona-warn-app_cwa-verification-iam&metric=alert_status)](https://sonarcloud.io/dashboard?id=corona-warn-app_cwa-verification-iam)
-[![coverage](https://sonarcloud.io/api/project_badges/measure?project=corona-warn-app_cwa-verification-iam&metric=coverage)](https://sonarcloud.io/dashboard?id=corona-warn-app_cwa-verification-iam)
-[![bugs](https://sonarcloud.io/api/project_badges/measure?project=corona-warn-app_cwa-verification-iam&metric=bugs)](https://sonarcloud.io/dashboard?id=corona-warn-app_cwa-verification-iam)
 
 ## About this component
  This repository contains a plain keycloak docker image as third party component and the project specific 'Corona-warn-app theme'. _TBD_
