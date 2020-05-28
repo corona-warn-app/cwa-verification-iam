@@ -25,7 +25,7 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
 
 ## About this component
 
-In the world of the Corona Warn App the Verification Identity and Access Management ensures that only authorized health personnel get access to the Verification Portal. In sum the parts of the verification component cooperates in the following manner:
+In the world of the Corona Warn App the Verification Identity and Access Management ensures that only authorized health personnel get access to the Verification Portal. The parts of the verification component cooperate in the following manner:
 
 - The Verification Server of the Corona Warn App (repository: cwa-verification-server) helps validating whether upload requests from the mobile App are valid or not.
 - The Verification Portal of the Corona Warn App (repository: cwa-verification-portal) allows hotline employees to generate teleTANs which are used by users of the mobile App to upload their diagnostic keys.
