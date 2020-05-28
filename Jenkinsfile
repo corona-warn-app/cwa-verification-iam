@@ -9,6 +9,6 @@
 sbsBuild(
   jdk: 'jdk11',
   dockerAlternateRegistries: [
-    'MTR_SBS@mtr.external.otc.telekomcloud.com/sbs/cwa-keycloak-server'
+    'MTR_SBS@mtr.external.otc.telekomcloud.com/sbs/cwa-verification-iam'
   ]
 )
