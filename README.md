@@ -18,13 +18,21 @@
   <a href="#licensing">Licensing</a>
 </p>
 
-The goal of this project is to develop the official Corona-Warn-App for Germany based on the exposure notification API from [Apple](https://www.apple.com/covid19/contacttracing/) and [Google](https://www.google.com/covid19/exposurenotifications/). The apps (for both iOS and Android) use Bluetooth technology to exchange anonymous encrypted data with other mobile phones (on which the app is also installed) in the vicinity of an app user's phone. The data is stored locally on each user's device, preventing authorities or other parties from accessing or controlling the data. 
+The goal of this project is to develop the official Corona-Warn-App for Germany based on the exposure notification API from [Apple](https://www.apple.com/covid19/contacttracing/) and [Google](https://www.google.com/covid19/exposurenotifications/). The apps (for both iOS and Android) use Bluetooth technology to exchange anonymous encrypted data with other mobile phones (on which the app is also installed) in the vicinity of an app user's phone. The data is stored locally on each user's device, preventing authorities or other parties from accessing or controlling the data.
 
 ## Status
 ![ci](https://github.com/corona-warn-app/cwa-verification-iam/workflows/ci/badge.svg)
 
 ## About this component
- This repository contains a plain keycloak docker image as third party component and the project specific 'Corona-warn-app theme'. _TBD_
+
+In the world of the Corona Warn App the Verification Identity and Access Management ensures that only authorized health personnel get access to the Verification Portal. In sum the parts of the verification component cooperates in the following manner:
+
+- The Verification Server of the Corona Warn App (repository: cwa-verification-server) helps validating whether upload requests from the mobile App are valid or not.
+- The Verification Portal of the Corona Warn App (repository: cwa-verification-portal) allows hotline employees to generate teleTANs which are used by users of the mobile App to upload their diagnostic keys.
+- The Verification Identity and Access of the Corona Warn App (repository: cwa-verification-iam) ensures that only authorized health personnel get access to the Verification Portal.
+- The Testresult Server of the Corona Warn App (repository: cwa-testresult-server) receives the results from laboratories and delivers these results to the app via the verification-server.
+
+ So, this repository contains a plain keycloak docker image as third party component and the project specific 'Corona-warn-app theme'.
 
 ## Working Language
 
