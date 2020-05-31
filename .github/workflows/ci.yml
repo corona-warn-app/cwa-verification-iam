@@ -19,8 +19,13 @@ jobs:
     - name: docker build and push
       if: ${{ github.event_name == 'push' }}
       run: |
+        export VERSION=$(git rev-parse --short ${GITHUB_SHA})
         echo ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_ACTOR} --password-stdin
-        docker build --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest .
+        docker build \
+        --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest \
+        --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:${VERSION} \
+        .
         docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest
+        docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:${VERSION}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
