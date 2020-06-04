@@ -90,9 +90,19 @@
         <subsystem xmlns="urn:jboss:domain:logging:8.0">
             <console-handler name="CONSOLE">
                 <formatter>
-                    <named-formatter name="COLOR-PATTERN"/>
+                    <named-formatter name="PATTERN"/>
                 </formatter>
             </console-handler>
+			<size-rotating-file-handler name="FILE" autoflush="false">
+				<level name="${env.KEYCLOAK_LOGLEVEL:INFO}"/>
+				<file relative-to="jboss.server.log.dir" path="server.log"/>
+				<rotate-size value="500k"/>
+				<max-backup-index value="5"/>
+				<append value="true"/>
+				<formatter>
+					<named-formatter name="PATTERN"/>
+				</formatter>
+			</size-rotating-file-handler>
             <logger category="com.arjuna">
                 <level name="WARN"/>
             </logger>
@@ -107,18 +117,26 @@
             </logger>
             <logger category="org.keycloak">
                 <level name="${env.KEYCLOAK_LOGLEVEL:INFO}"/>
+				<handlers>
+					<handler name="CONSOLE"/>
+					<handler name="FILE"/>
+				</handlers>
             </logger>
+			<logger category="org.keycloak.events">
+                <level name="${env.KEYCLOAK_LOGLEVEL:INFO}"/>
+				<handlers>
+					<handler name="CONSOLE"/>
+					<handler name="FILE"/>
+				</handlers>
+			</logger>
             <root-logger>
-                <level name="${env.ROOT_LOGLEVEL:INFO}"/>
+                <level name="${env.KEYCLOAK_LOGLEVEL:INFO}"/>
                 <handlers>
                     <handler name="CONSOLE"/>
                 </handlers>
             </root-logger>
             <formatter name="PATTERN">
-                <pattern-formatter pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n"/>
-            </formatter>
-            <formatter name="COLOR-PATTERN">
-                <pattern-formatter pattern="%K{level}%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n"/>
+                <pattern-formatter pattern="%d{yyyy-MM-dd'T'HH:mm:ssZ} %-5p [%t] %c[%i]: %m%n"/>
             </formatter>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:bean-validation:1.0"/>
