@@ -637,15 +637,19 @@
                 <host name="default-host" alias="localhost">
                     <location name="/" handler="welcome-content"/>
                     <http-invoker security-realm="ApplicationRealm"/>
+					<filter-ref name="pragma"/>
                 </host>
             </server>
-            <servlet-container name="default">
+            <servlet-container name="default" disable-caching-for-secured-pages="true">
                 <jsp-config/>
                 <websockets/>
             </servlet-container>
             <handlers>
                 <file name="welcome-content" path="${jboss.home.dir}/welcome-content"/>
             </handlers>
+			<filters>
+				<response-header name="pragma" header-name="Pragma" header-value="no-cache"/>
+			</filters>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:weld:4.0"/>
     </profile>
