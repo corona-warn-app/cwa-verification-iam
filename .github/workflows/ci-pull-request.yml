@@ -1,0 +1,14 @@
+name: ci-pull-request
+on:
+  pull_request:
+    types:
+    - opened
+    - synchronize
+    - reopened
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker build
+      run: docker build .
