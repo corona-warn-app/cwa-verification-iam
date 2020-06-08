@@ -18,7 +18,7 @@
   <a href="#licensing">Licensing</a>
 </p>
 
-The goal of this project is to develop the official Corona-Warn-App for Germany based on the exposure notification API from [Apple](https://www.apple.com/covid19/contacttracing/) and [Google](https://www.google.com/covid19/exposurenotifications/). The apps (for both iOS and Android) use Bluetooth technology to exchange anonymous encrypted data with other mobile phones (on which the app is also installed) in the vicinity of an app user's phone. The data is stored locally on each user's device, preventing authorities or other parties from accessing or controlling the data. This repository contains the **I**dentity and **A**ccess **M**anagement System (IAM) of the **verification portal** for the Corona-Warn-App plus some ui decorators. As the verification portal displays valid teleTANs which enable the issuer to submit his Diagnosis Keys, its interface shall be protected against unauthorized access by suitable means. Only dedicated personell acting on behalf of the health authority is authorized to login and hence will get access.
+The goal of this project is to develop the official Corona-Warn-App for Germany based on the exposure notification API from [Apple](https://www.apple.com/covid19/contacttracing/) and [Google](https://www.google.com/covid19/exposurenotifications/). The apps (for both iOS and Android) use Bluetooth technology to exchange anonymous encrypted data with other mobile phones (on which the app is also installed) in the vicinity of an app user's phone. The data is stored locally on each user's device, preventing authorities or other parties from accessing or controlling the data. This repository contains the **I**dentity and **A**ccess **M**anagement System (IAM) of the **verification portal** for the Corona-Warn-App plus some ui decorators. As the verification portal displays valid teleTANs which enable the issuer to submit his Diagnosis Keys, its interface shall be protected against unauthorized access by suitable means. Only dedicated personnel acting on behalf of the health authority is authorized to login and hence will get access.
 This implementation is still a **work in progress**, and the code it contains is currently alpha-quality code.
 
 ## Status
@@ -84,7 +84,7 @@ The following public repositories are currently available for the Corona-Warn-Ap
 | [cwa-server]        | Backend implementation for the Apple/Google exposure notification API |
 | [cwa-verification-server] | Backend implementation of the verification process|
 | [cwa-verification-portal] | The portal to interact with the verification server |
-| [cwa-verification-iam] | The identy and access management to interact with the verification server |
+| [cwa-verification-iam] | The identity and access management to interact with the verification server |
 | [cwa-testresult-server] | receives the test results from connected laboratories |
 
 [cwa-documentation]: https://github.com/corona-warn-app/cwa-documentation
