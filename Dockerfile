@@ -12,7 +12,8 @@ RUN cp ${WORK_DIR}/src/standalone/configuration/standalone-ha.xml /opt/jboss/key
 
 EXPOSE 8080
 EXPOSE 8443
-EXPOSE 8444
+EXPOSE 7080
+EXPOSE 7443
 
 ENTRYPOINT [ "/opt/jboss/tools/docker-entrypoint.sh" ]
 
