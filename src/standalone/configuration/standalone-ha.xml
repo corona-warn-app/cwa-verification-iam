@@ -671,10 +671,12 @@
         <https-listener name="https" socket-binding="https"
                         proxy-address-forwarding="${env.PROXY_ADDRESS_FORWARDING:false}"
                         security-realm="ApplicationRealm" enable-http2="true"/>
+        <https-listener name="https-admin" socket-binding="https-admin" security-realm="ApplicationRealm" enable-http2="true"/>
         <host name="default-host" alias="localhost">
           <location name="/" handler="welcome-content"/>
           <http-invoker security-realm="ApplicationRealm"/>
           <filter-ref name="pragma"/>
+          <filter-ref name="portAccess"/>
         </host>
       </server>
       <servlet-container name="default" disable-caching-for-secured-pages="true">
@@ -686,6 +688,7 @@
       </handlers>
       <filters>
         <response-header name="pragma" header-name="Pragma" header-value="no-cache"/>
+        <expression-filter name="portAccess" expression="path-prefix('/auth/admin') and not equals(%p, 8444) -> response-code(403)"/>
       </filters>
     </subsystem>
     <subsystem xmlns="urn:jboss:domain:weld:4.0"/>
@@ -706,6 +709,7 @@
     <socket-binding name="ajp" port="${jboss.ajp.port:8009}"/>
     <socket-binding name="http" port="${jboss.http.port:8080}"/>
     <socket-binding name="https" port="${jboss.https.port:8443}"/>
+    <socket-binding name="https-admin" port="${jboss.https-admin.port:8444}"/>
     <socket-binding name="jgroups-mping" interface="private"
                     multicast-address="${jboss.default.multicast.address:230.0.0.4}" multicast-port="45700"/>
     <socket-binding name="jgroups-tcp" interface="private" port="7600"/>
