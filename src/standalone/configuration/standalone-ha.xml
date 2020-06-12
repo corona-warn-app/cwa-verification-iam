@@ -43,12 +43,6 @@
         </authorization>
       </security-realm>
       <security-realm name="ApplicationRealm">
-        <server-identities>
-          <ssl>
-            <keystore path="application.keystore" relative-to="jboss.server.config.dir" keystore-password="password"
-                      alias="server" key-password="password" generate-self-signed-certificate-host="localhost"/>
-          </ssl>
-        </server-identities>
         <authentication>
           <local default-user="$local" allowed-users="*" skip-group-loading="true"/>
           <properties path="application-users.properties" relative-to="jboss.server.config.dir"/>
@@ -249,6 +243,28 @@
     </subsystem>
     <subsystem xmlns="urn:wildfly:elytron:9.0" final-providers="combined-providers"
                disallowed-providers="OracleUcrypto">
+      <tls>
+        <key-stores>
+          <key-store name="cwa-keystore">
+            <credential-reference clear-text="changeit"/>
+            <implementation type="JKS"/>
+            <file path="${env.SSL_KEY_STORE:keystores/test-only-https-keystore.jks}"
+                  relative-to="jboss.server.config.dir"/>
+          </key-store>
+        </key-stores>
+        <key-managers>
+          <key-manager name="cwa-key-manager" key-store="cwa-keystore">
+            <credential-reference clear-text="changeit"/>
+          </key-manager>
+        </key-managers>
+        <server-ssl-contexts>
+          <server-ssl-context name="cwa-ssl-context"
+                              key-manager="cwa-key-manager"
+                              cipher-suite-filter="TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_DHE_DSS_WITH_AES_128_GCM_SHA256,TLS_DHE_DSS_WITH_AES_256_GCM_SHA384,TLS_DHE_RSA_WITH_AES_128_GCM_SHA256,TLS_DHE_RSA_WITH_AES_256_GCM_SHA384"
+                              cipher-suite-names="TLS_AES_128_CCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_AES_128_GCM_SHA256"
+                              protocols="TLSv1.2 TLSv1.3" />
+        </server-ssl-contexts>
+      </tls>
       <providers>
         <aggregate-providers name="combined-providers">
           <providers name="elytron"/>
@@ -670,14 +686,14 @@
                        proxy-address-forwarding="${env.PROXY_ADDRESS_FORWARDING:false}" enable-http2="true"/>
         <https-listener name="https" socket-binding="https"
                         proxy-address-forwarding="${env.PROXY_ADDRESS_FORWARDING:false}"
-                        security-realm="ApplicationRealm" enable-http2="true"
-                        enabled-protocols="TLSv1.2,TLSv1.3"
-                        enabled-cipher-suites="TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_DHE_DSS_WITH_AES_128_GCM_SHA256,TLS_DHE_DSS_WITH_AES_256_GCM_SHA384,TLS_DHE_RSA_WITH_AES_128_GCM_SHA256,TLS_DHE_RSA_WITH_AES_256_GCM_SHA384"/>
+                        enable-http2="true"
+                        ssl-context="cwa-ssl-context"/>
         <http-listener name="http-admin" socket-binding="http-admin" redirect-socket="https"
                        proxy-address-forwarding="${env.PROXY_ADDRESS_FORWARDING:false}" enable-http2="true"/>
         <https-listener name="https-admin" socket-binding="https-admin"
                         proxy-address-forwarding="${env.PROXY_ADDRESS_FORWARDING:false}"
-                        security-realm="ApplicationRealm" enable-http2="true"/>
+                        enable-http2="true"
+                        ssl-context="cwa-ssl-context"/>
         <host name="default-host" alias="localhost">
           <location name="/" handler="welcome-content"/>
           <http-invoker security-realm="ApplicationRealm"/>
