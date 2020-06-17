@@ -246,7 +246,7 @@
       <tls>
         <key-stores>
           <key-store name="cwa-keystore">
-            <credential-reference clear-text="changeit"/>
+            <credential-reference clear-text="${env.SSL_KEY_STORE_PASSWORD:changeit}"/>
             <implementation type="JKS"/>
             <file path="${env.SSL_KEY_STORE:keystores/test-only-https-keystore.jks}"
                   relative-to="jboss.server.config.dir"/>
@@ -254,7 +254,7 @@
         </key-stores>
         <key-managers>
           <key-manager name="cwa-key-manager" key-store="cwa-keystore">
-            <credential-reference clear-text="changeit"/>
+            <credential-reference clear-text="${env.SSL_KEY_STORE_PASSWORD:changeit}"/>
           </key-manager>
         </key-managers>
         <server-ssl-contexts>
