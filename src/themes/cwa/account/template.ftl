@@ -3,10 +3,12 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' style-src 'unsafe-inline'">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="${url.resourcesPath}/img/c-19_logo.png">
     <link rel="stylesheet" type="text/css" href="${url.resourcesPath}/password.css">
+    <script src="${url.resourcesPath}/logout.js"></script>
     <title>${msg("changePasswordHtmlTitle")}</title>
   </head>
   <body>
@@ -28,15 +30,22 @@
         <td>TeleTAN Portal</td>
       </tr>
     </table>
-    <div class="col-sm-9 content-area">
-      <#if message?has_content>
-      <div class="alert alert-${message.type}">
-        <#if message.type=='success' ><div class="success" style="top: 610px;"><span class="kc-feedback-text">${kcSanitize(message.summary)?no_esc}</span></div>></#if>
-        <#if message.type=='error' ><div class="error" style="top: 610px;"><span class="kc-feedback-text">${kcSanitize(message.summary)?no_esc}</span></div></#if>
-      </div>
-      </#if>
-      <#nested "content">
+
+    <table class="user" onclick="showUserPopup()">
+      <tr>
+        <td><img  src="${url.resourcesPath}/img/user.png"/></td>
+        <td style="padding-left: 10px;">${(account.username!'')}<td/>
+      </tr>
+    </table>
+    <a href="${url.logoutUrl}"><button class="button-logout" id="logout">${msg("doSignOut")}</button></a>
+
+    <#if message?has_content>
+    <div class="alert alert-${message.type}">
+      <#if message.type=='success' ><div class="success" style="top: 610px;"><span class="kc-feedback-text">${kcSanitize(message.summary)?no_esc}</span></div>></#if>
+      <#if message.type=='error' ><div class="error" style="top: 610px;"><span class="kc-feedback-text">${kcSanitize(message.summary)?no_esc}</span></div></#if>
     </div>
+    </#if>
+    <#nested "content">
   </body>
 </html>
 </#macro>
