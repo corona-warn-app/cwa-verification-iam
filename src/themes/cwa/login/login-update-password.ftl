@@ -40,7 +40,7 @@
 <#if message?? && message.type = 'error'>
   <div class="error" style="top: 540px;">Die eingegebenen Passwörter stimmen nicht überein oder entsprechen nicht den Sicherheitsrichtlinien.
     <span style="font-family: Telegrotesk Next Regular;">
-		<br><br>Ihr Password muss mindestens 8 Zeichen lang sein und aus mindestens drei der folgenden Zeichenkategorien bestehen:<br>
+		<br><br>Ihr Passwort muss mindestens 8 Zeichen lang sein und aus mindestens drei der folgenden Zeichenkategorien bestehen:<br>
 		<br>&nbsp;&nbsp; • Kleinbuchstaben
 		<br>&nbsp;&nbsp; • Grosbuchstaben
 		<br>&nbsp;&nbsp; • Ziffern
