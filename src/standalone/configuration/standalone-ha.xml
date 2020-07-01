@@ -245,24 +245,21 @@
                disallowed-providers="OracleUcrypto">
       <tls>
         <key-stores>
-          <key-store name="cwa-keystore">
-            <credential-reference clear-text="${env.SSL_KEY_STORE_PASSWORD:changeit}"/>
+          <key-store name="cwa-keystore-test">
+            <credential-reference clear-text="changeit"/>
             <implementation type="JKS"/>
-            <file path="${env.SSL_KEY_STORE:keystores/test-only-https-keystore.jks}"
+            <file path="keystores/test-only-https-keystore.jks"
                   relative-to="jboss.server.config.dir"/>
           </key-store>
         </key-stores>
         <key-managers>
-          <key-manager name="cwa-key-manager" key-store="cwa-keystore">
-            <credential-reference clear-text="${env.SSL_KEY_STORE_PASSWORD:changeit}"/>
+          <key-manager name="cwa-key-manager-test" key-store="cwa-keystore-test">
+            <credential-reference clear-text="changeit"/>
           </key-manager>
         </key-managers>
         <server-ssl-contexts>
-          <server-ssl-context name="cwa-ssl-context"
-                              key-manager="cwa-key-manager"
-                              cipher-suite-filter="${env.TLSv1_2_CIPHERS:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_DHE_DSS_WITH_AES_128_GCM_SHA256,TLS_DHE_DSS_WITH_AES_256_GCM_SHA384,TLS_DHE_RSA_WITH_AES_128_GCM_SHA256,TLS_DHE_RSA_WITH_AES_256_GCM_SHA384}"
-                              cipher-suite-names="${env.TLSv1_3_CIPHERS:TLS_AES_128_CCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_AES_128_GCM_SHA256}"
-                              protocols="TLSv1.2 TLSv1.3" />
+          <server-ssl-context name="cwa-ssl-context-test"
+                              key-manager="cwa-key-manager-test" />
         </server-ssl-contexts>
       </tls>
       <providers>
@@ -687,13 +684,13 @@
         <https-listener name="https" socket-binding="https"
                         proxy-address-forwarding="${env.PROXY_ADDRESS_FORWARDING:false}"
                         enable-http2="true"
-                        ssl-context="cwa-ssl-context"/>
+                        ssl-context="cwa-ssl-context-test"/>
         <http-listener name="http-admin" socket-binding="http-admin" redirect-socket="https"
                        proxy-address-forwarding="${env.PROXY_ADDRESS_FORWARDING:false}" enable-http2="true"/>
         <https-listener name="https-admin" socket-binding="https-admin"
                         proxy-address-forwarding="${env.PROXY_ADDRESS_FORWARDING:false}"
                         enable-http2="true"
-                        ssl-context="cwa-ssl-context"/>
+                        ssl-context="cwa-ssl-context-test"/>
         <host name="default-host" alias="localhost">
           <location name="/" handler="welcome-content"/>
           <http-invoker security-realm="ApplicationRealm"/>

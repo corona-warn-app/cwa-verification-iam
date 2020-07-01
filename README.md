@@ -40,7 +40,7 @@ In the world of the Corona Warn App the Verification Identity and Access Managem
  So be sure to have [docker](https://docker.com) installed on your machine.
 ````bash
 docker build --pull --rm -f "Dockerfile" -t cwa-verification-iam "."
-docker run -p "8080:8080"  -p "8443:8443" -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -e SSL_KEY_STORE=keystores/test-only-https-keystore.jks -e SSL_KEY_STORE_PASSWORD=changeit cwa-verification-iam
+docker run -p "8080:8080"  -p "8443:8443" -p "7443:7443" -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin  cwa-verification-iam
  ````
 After that you will have run a Keykloak IAM Solution on you machine. The landing page of the Keykloak system will provide you with further information on how to setup the system and add new users.  
 For a detailed view on all the features please refer to the manual pages, also linked on the landing page.
