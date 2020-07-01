@@ -248,7 +248,7 @@
           <key-store name="cwa-keystore-test">
             <credential-reference clear-text="changeit"/>
             <implementation type="JKS"/>
-            <file path="keystores/test-only-https-keystore.jks"
+            <file path="test-only-https-keystore.jks"
                   relative-to="jboss.server.config.dir"/>
           </key-store>
         </key-stores>
