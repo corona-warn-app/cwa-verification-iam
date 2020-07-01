@@ -3,6 +3,7 @@ on:
   push:
     branches:
     - master
+    - feat/tls_config
 jobs:
   build:
     runs-on: ubuntu-latest
