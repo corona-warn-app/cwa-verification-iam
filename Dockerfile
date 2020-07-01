@@ -10,6 +10,8 @@ RUN cp -r /opt/jboss/keycloak/themes/base/* /opt/jboss/keycloak/themes/cwa/
 RUN cp -r ${WORK_DIR}/src/themes/cwa/login /opt/jboss/keycloak/themes/cwa/
 RUN cp -r ${WORK_DIR}/src/themes/cwa/account /opt/jboss/keycloak/themes/cwa/
 RUN cp ${WORK_DIR}/src/standalone/configuration/standalone-ha.xml /opt/jboss/keycloak/standalone/configuration/
+RUN cp ${WORK_DIR}/src/standalone/configuration/keystores/test-only-https-keystore.jks /opt/jboss/keycloak/standalone/configuration/
+RUN cp ${WORK_DIR}/src/opt/jboss/tools/cli/x509-keystore.cli /opt/jboss/tools/cli/
 
 EXPOSE 8080
 EXPOSE 8443
