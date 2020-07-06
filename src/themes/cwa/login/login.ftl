@@ -2,6 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' style-src 'unsafe-inline'">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="${url.resourcesPath}/teletan.css"/>
   <title>TeleTAN Portal</title>
@@ -36,7 +37,7 @@
 </div>
 <form id="kc-form-login" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post">
   <input class="input" style="top: 420px;" type="text" placeholder="Benutzername" name="username" required>
-  <input class="input" style="top: 480px;" type="password" placeholder="Passwort" name="password" required>
+  <input class="input" style="top: 480px;" type="password" placeholder="Passwort" name="password" autocomplete="off" required>
   <input class="button" style="top: 540px;" type="submit" value="Anmelden">
 </form>
 

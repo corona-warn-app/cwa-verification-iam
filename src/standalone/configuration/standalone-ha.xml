@@ -43,12 +43,6 @@
         </authorization>
       </security-realm>
       <security-realm name="ApplicationRealm">
-        <server-identities>
-          <ssl>
-            <keystore path="application.keystore" relative-to="jboss.server.config.dir" keystore-password="password"
-                      alias="server" key-password="password" generate-self-signed-certificate-host="localhost"/>
-          </ssl>
-        </server-identities>
         <authentication>
           <local default-user="$local" allowed-users="*" skip-group-loading="true"/>
           <properties path="application-users.properties" relative-to="jboss.server.config.dir"/>
@@ -94,7 +88,7 @@
           <named-formatter name="PATTERN"/>
         </formatter>
       </console-handler>
-      <size-rotating-file-handler name="FILE" autoflush="false">
+      <size-rotating-file-handler name="FILE" autoflush="true">
         <level name="${env.KEYCLOAK_LOGLEVEL:INFO}"/>
         <file relative-to="jboss.server.log.dir" path="server.log"/>
         <rotate-size value="500k"/>
@@ -249,6 +243,25 @@
     </subsystem>
     <subsystem xmlns="urn:wildfly:elytron:9.0" final-providers="combined-providers"
                disallowed-providers="OracleUcrypto">
+      <tls>
+        <key-stores>
+          <key-store name="cwa-keystore-test">
+            <credential-reference clear-text="changeit"/>
+            <implementation type="JKS"/>
+            <file path="test-only-https-keystore.jks"
+                  relative-to="jboss.server.config.dir"/>
+          </key-store>
+        </key-stores>
+        <key-managers>
+          <key-manager name="cwa-key-manager-test" key-store="cwa-keystore-test">
+            <credential-reference clear-text="changeit"/>
+          </key-manager>
+        </key-managers>
+        <server-ssl-contexts>
+          <server-ssl-context name="cwa-ssl-context-test"
+                              key-manager="cwa-key-manager-test" />
+        </server-ssl-contexts>
+      </tls>
       <providers>
         <aggregate-providers name="combined-providers">
           <providers name="elytron"/>
@@ -670,11 +683,20 @@
                        proxy-address-forwarding="${env.PROXY_ADDRESS_FORWARDING:false}" enable-http2="true"/>
         <https-listener name="https" socket-binding="https"
                         proxy-address-forwarding="${env.PROXY_ADDRESS_FORWARDING:false}"
-                        security-realm="ApplicationRealm" enable-http2="true"/>
+                        enable-http2="true"
+                        ssl-context="cwa-ssl-context-test"/>
+        <http-listener name="http-admin" socket-binding="http-admin" redirect-socket="https"
+                       proxy-address-forwarding="${env.PROXY_ADDRESS_FORWARDING:false}" enable-http2="true"/>
+        <https-listener name="https-admin" socket-binding="https-admin"
+                        proxy-address-forwarding="${env.PROXY_ADDRESS_FORWARDING:false}"
+                        enable-http2="true"
+                        ssl-context="cwa-ssl-context-test"/>
         <host name="default-host" alias="localhost">
           <location name="/" handler="welcome-content"/>
           <http-invoker security-realm="ApplicationRealm"/>
-          <filter-ref name="pragma"/>
+          <filter-ref name="pragmaHeader"/>
+          <filter-ref name="adminAccess"/>
+          <filter-ref name="accountAccess"/>
         </host>
       </server>
       <servlet-container name="default" disable-caching-for-secured-pages="true">
@@ -685,7 +707,11 @@
         <file name="welcome-content" path="${jboss.home.dir}/welcome-content"/>
       </handlers>
       <filters>
-        <response-header name="pragma" header-name="Pragma" header-value="no-cache"/>
+        <response-header name="pragmaHeader" header-name="Pragma" header-value="no-cache"/>
+        <expression-filter name="adminAccess" expression="path-prefix('/auth/admin') and not (equals(%p, 7080) or equals(%p, 7443)) -> response-code(403)"/>
+        <expression-filter name="accountAccess"
+                           expression="path-prefix('/auth/realms/cwa/account/totp') or path('/auth/realms/cwa/account')
+                           or path-prefix('/auth/realms/cwa/account/sessions') or path-prefix('/auth/realms/cwa/account/applications') -> response-code(403)"/>
       </filters>
     </subsystem>
     <subsystem xmlns="urn:jboss:domain:weld:4.0"/>
@@ -706,6 +732,8 @@
     <socket-binding name="ajp" port="${jboss.ajp.port:8009}"/>
     <socket-binding name="http" port="${jboss.http.port:8080}"/>
     <socket-binding name="https" port="${jboss.https.port:8443}"/>
+    <socket-binding name="http-admin" port="${jboss.admin.http.port:7080}"/>
+    <socket-binding name="https-admin" port="${jboss.admin.https.port:7443}"/>
     <socket-binding name="jgroups-mping" interface="private"
                     multicast-address="${jboss.default.multicast.address:230.0.0.4}" multicast-port="45700"/>
     <socket-binding name="jgroups-tcp" interface="private" port="7600"/>

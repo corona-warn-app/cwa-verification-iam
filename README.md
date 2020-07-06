@@ -18,8 +18,7 @@
   <a href="#licensing">Licensing</a>
 </p>
 
-The goal of this project is to develop the official Corona-Warn-App for Germany based on the exposure notification API from [Apple](https://www.apple.com/covid19/contacttracing/) and [Google](https://www.google.com/covid19/exposurenotifications/). The apps (for both iOS and Android) use Bluetooth technology to exchange anonymous encrypted data with other mobile phones (on which the app is also installed) in the vicinity of an app user's phone. The data is stored locally on each user's device, preventing authorities or other parties from accessing or controlling the data. This repository contains the **I**dentity and **A**ccess **M**anagement System (IAM) of the **verification portal** for the Corona-Warn-App plus some ui decorators. As the verification portal displays valid teleTANs which enable the issuer to submit his Diagnosis Keys, its interface shall be protected against unauthorized access by suitable means. Only dedicated personell acting on behalf of the health authority is authorized to login and hence will get access.
-This implementation is still a **work in progress**, and the code it contains is currently alpha-quality code.
+The goal of this project is to develop the official Corona-Warn-App for Germany based on the exposure notification API from [Apple](https://www.apple.com/covid19/contacttracing/) and [Google](https://www.google.com/covid19/exposurenotifications/). The apps (for both iOS and Android) use Bluetooth technology to exchange anonymous encrypted data with other mobile phones (on which the app is also installed) in the vicinity of an app user's phone. The data is stored locally on each user's device, preventing authorities or other parties from accessing or controlling the data. This repository contains the **I**dentity and **A**ccess **M**anagement System (IAM) of the **verification portal** for the Corona-Warn-App plus some ui decorators. As the verification portal displays valid teleTANs which enable the issuer to submit his Diagnosis Keys, its interface shall be protected against unauthorized access by suitable means. Only dedicated personnel acting on behalf of the health authority is authorized to login and hence will get access.
 
 ## Status
 ![ci](https://github.com/corona-warn-app/cwa-verification-iam/workflows/ci/badge.svg)
@@ -41,7 +40,7 @@ In the world of the Corona Warn App the Verification Identity and Access Managem
  So be sure to have [docker](https://docker.com) installed on your machine.
 ````bash
 docker build --pull --rm -f "Dockerfile" -t cwa-verification-iam "."
-docker run -p "8080:8080"  -p "8443:8443" -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -e SSL_KEY_STORE=/opt/jboss/keycloak/standalone/configuration/ONLY_FOR_TEST_keystore.jks -e SSL_KEY_STORE_PASSWORD=secret cwa-verification-iam
+docker run -p "8080:8080"  -p "8443:8443" -p "7443:7443" -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin  cwa-verification-iam
  ````
 After that you will have run a Keykloak IAM Solution on you machine. The landing page of the Keykloak system will provide you with further information on how to setup the system and add new users.  
 For a detailed view on all the features please refer to the manual pages, also linked on the landing page.
@@ -64,7 +63,7 @@ The following channels are available for discussions, feedback, and support requ
 | **General Discussion**   | <a href="https://github.com/corona-warn-app/cwa-documentation/issues/new/choose" title="General Discussion"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-documentation/question.svg?style=flat-square"></a> </a>   |
 | **Concept Feedback**    | <a href="https://github.com/corona-warn-app/cwa-documentation/issues/new/choose" title="Open Concept Feedback"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-documentation/architecture.svg?style=flat-square"></a>  |
 | **Verification IAM Issue**    | <a href="https://github.com/corona-warn-app/cwa-verification-iam/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-verification-iam?style=flat"></a>  |
-| **Other Requests**    | <a href="mailto:opensource@telekom.de" title="Email CWA Team"><img src="https://img.shields.io/badge/email-CWA%20team-green?logo=mail.ru&style=flat-square&logoColor=white"></a>   |
+| **Other Requests**    | <a href="mailto:cwa-opensource@telekom.de" title="Email CWA Team"><img src="https://img.shields.io/badge/email-CWA%20team-green?logo=mail.ru&style=flat-square&logoColor=white"></a>   |
 
 ## How to Contribute
 
@@ -84,7 +83,7 @@ The following public repositories are currently available for the Corona-Warn-Ap
 | [cwa-server]        | Backend implementation for the Apple/Google exposure notification API |
 | [cwa-verification-server] | Backend implementation of the verification process|
 | [cwa-verification-portal] | The portal to interact with the verification server |
-| [cwa-verification-iam] | The identy and access management to interact with the verification server |
+| [cwa-verification-iam] | The identity and access management to interact with the verification server |
 | [cwa-testresult-server] | receives the test results from connected laboratories |
 
 [cwa-documentation]: https://github.com/corona-warn-app/cwa-documentation
