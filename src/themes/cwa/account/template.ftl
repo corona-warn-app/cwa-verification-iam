@@ -3,12 +3,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' style-src 'unsafe-inline'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self'"/>
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="${url.resourcesPath}/img/c-19_logo.png">
     <link rel="stylesheet" type="text/css" href="${url.resourcesPath}/password.css">
-    <script src="${url.resourcesPath}/logout.js"></script>
     <title>${msg("changePasswordHtmlTitle")}</title>
   </head>
   <body>
@@ -31,12 +30,13 @@
       </tr>
     </table>
 
-    <table class="user" onclick="showUserPopup()">
+    <table id="popup-menu" class="user">
       <tr>
-        <td><img  src="${url.resourcesPath}/img/user.png"/></td>
+        <td><img src="${url.resourcesPath}/img/user.png"/></td>
         <td style="padding-left: 10px;">${(account.username!'')}<td/>
       </tr>
     </table>
+    <script src="${url.resourcesPath}/logout.js"></script>
     <a href="${url.logoutUrl}"><button class="button-logout" id="logout">${msg("doSignOut")}</button></a>
 
     <#if message?has_content>
