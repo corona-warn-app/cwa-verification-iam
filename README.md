@@ -38,12 +38,17 @@ In the world of the Corona Warn App the Verification Identity and Access Managem
  
  This repository is intended to pull and start a docker image containing a [keycloak](https://www.keycloak.org/) IAM System.
  So be sure to have [docker](https://docker.com) installed on your machine.
+ 
+To build the IAM docker image and start the Keycloak server, execute the following commands from the root directory of the repository:
+
 ````bash
 docker build --pull --rm -f "Dockerfile" -t cwa-verification-iam "."
 docker run -p "8080:8080"  -p "8443:8443" -p "7443:7443" -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin  cwa-verification-iam
  ````
-After that you will have run a Keykloak IAM Solution on you machine. The landing page of the Keykloak system will provide you with further information on how to setup the system and add new users.  
-For a detailed view on all the features please refer to the manual pages, also linked on the landing page.
+
+After that you will have a Keykloak IAM Solution running on your machine (localhost). The landing page of the Keykloak system will provide you with further information on how to setup the system and add new users. For a detailed view on all the features please refer to the manual pages, also linked on the landing page.
+
+**Note:** To access the **administration console**, you must use port **7443**, which only accepts HTTPS connections. Since the local installation uses a self-signed certificate, your browser will throw a warning/error (e.g., ERR_CERT_AUTHORITY_INVALID) about the risk of accepting this kind of certificates. You need to click on "continue to localhost (insecure)" or similar option shown by your browser.    
 
 ## Working Language
 
