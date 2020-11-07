@@ -11,7 +11,7 @@ jobs:
     - name: environment
       run: |
         export VERSION=$(git rev-parse --short ${GITHUB_SHA})
-        echo "::set-env name=VERSION::${VERSION}"
+        echo "VERSION=${VERSION}" >> $GITHUB_ENV
     - name: docker build
       run: |
         docker build \
