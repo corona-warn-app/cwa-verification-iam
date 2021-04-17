@@ -23,7 +23,7 @@
 
 <!-- BEGIN page specific content  -->
 <div class="text-big" style="top: 210px;">Anmeldung</div>
-<div class="text-bold" style="top: 290px;">Hier können Sie sich für die Verwaltungs der Patienten Schnelltests anmelden.
+<div class="text-bold" style="top: 290px;">Hier können Sie sich für die Verwaltung der Patienten Schnelltests anmelden.
 </div>
 <div class="text" style="top: 340px;">Bitte melden Sie sich mit Ihrem Benutzernamen und Passwort an.
   Halten Sie das mobile Endgerät bereit, auf dem Sie die
