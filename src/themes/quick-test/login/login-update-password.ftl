@@ -9,12 +9,7 @@
   <link rel="icon" href="${url.resourcesPath}/img/c-19_logo.png">
 </head>
 <body>
-<div class="header">
-  <img class="header-logo" src="${url.resourcesPath}/img/telekom_web_logo.png">
-  <img class="header-text" src="${url.resourcesPath}/img/life_is_for_sharing.png">
-</div>
 <div class="footer">
-  <p class="footer-font footer-copyright">© Telekom Deutschland GmbH</p>
   <p class="footer-font footer-imprint"><a href="https://www.t-systems.com/de/de/impressum">Impressum</a></p>
   <img class="footer-dp-logo" src="${url.resourcesPath}/img/data_protect.png">
   <p class="footer-font footer-dp"><a href="https://www.t-systems.com/de/de/datenschutz">Datenschutz</a></p>

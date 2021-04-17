@@ -5,17 +5,11 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="${url.resourcesPath}/quicktest.css"/>
-  <title>CSchnelltest Portal</title>
+  <title>Schnelltest Portal</title>
   <link rel="icon" href="${url.resourcesPath}/img/c-19_logo.png">
 </head>
 <body>
-<div class="header">
-  <img class="header-logo" src="${url.resourcesPath}/img/telekom_web_logo.png">
-  <img class="header-text" src="${url.resourcesPath}/img/life_is_for_sharing.png">
-</div>
 <div class="footer">
-  <p class="footer-font footer-copyright">© Telekom Deutschland GmbH</p>
-
   <p class="footer-font footer-imprint"><a href="https://www.t-systems.com/de/de/impressum">Impressum</a></p>
   <img class="footer-dp-logo" src="${url.resourcesPath}/img/data_protect.png">
   <p class="footer-font footer-dp"><a href="https://www.t-systems.com/de/de/datenschutz">Datenschutz</a></p>
@@ -29,7 +23,7 @@
 
 <!-- BEGIN page specific content  -->
 <div class="text-big" style="top: 210px;">Anmeldung</div>
-<div class="text-bold" style="top: 290px;">Hier können Sie für den Patienten Schnelltests bearbeiten.
+<div class="text-bold" style="top: 290px;">Hier können Sie sich für die Verwaltungs der Patienten Schnelltests anmelden.
 </div>
 <div class="text" style="top: 340px;">Bitte melden Sie sich mit Ihrem Benutzernamen und Passwort an.
   Halten Sie das mobile Endgerät bereit, auf dem Sie die

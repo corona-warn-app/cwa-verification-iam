@@ -11,13 +11,7 @@
     <title>${msg("changePasswordHtmlTitle")}</title>
   </head>
   <body>
-    <div class="header">
-      <img class="header-logo" src="${url.resourcesPath}/img/telekom_web_logo.png">
-      <img class="header-text" src="${url.resourcesPath}/img/life_is_for_sharing.png">
-    </div>
-
     <div class="footer">
-      <p class="footer-font footer-copyright">© Telekom Deutschland GmbH</p>
       <p class="footer-font footer-imprint">Impressum</p>
       <img class="footer-dp-logo" src="${url.resourcesPath}/img/data_protect.png">
       <p class="footer-font footer-dp">Datenschutz</p>
@@ -26,7 +20,7 @@
     <table class="c19-logo">
       <tr>
         <td style="width: 1px;"><img src="${url.resourcesPath}/img/c-19_logo.png"></td>
-        <td>TeleTAN Portal</td>
+        <td>Schnelltest Portal</td>
       </tr>
     </table>
 
