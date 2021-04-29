@@ -52,6 +52,13 @@
 	color: #262626;
 }
 
+.text-dp {
+  margin: 100px 5%;
+  font-family: "Telegrotesk Next Regular";
+  font-size: 18px;
+  color: #262626
+}
+
 .text {
  	position: absolute;
  	left: 50%;
