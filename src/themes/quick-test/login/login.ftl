@@ -14,12 +14,14 @@
   <img class="footer-dp-logo" src="${url.resourcesPath}/img/data_protect.png">
   <p class="footer-font footer-dp"><a href="${url.resourcesPath}/dataprivacy.html" target="_blank">Datenschutz</a></p>
 </div>
-<table class="c19-logo">
-  <tr>
-    <td style="width: 1px;"><img src="${url.resourcesPath}/img/c-19_logo.png"></td>
-    <td>Schnelltest Portal</td>
-  </tr>
-</table>
+<div class="header">
+  <table class="c19-logo">
+    <tr>
+      <td style="width: 1px;"><img src="${url.resourcesPath}/img/c-19_logo.png"></td>
+      <td>Schnelltest Portal</td>
+    </tr>
+  </table>
+</div>
 
 <!-- BEGIN page specific content  -->
 <div class="text-big" style="top: 210px;">Anmeldung</div>
