@@ -10,9 +10,9 @@
 </head>
 <body>
 <div class="footer">
-  <p class="footer-font footer-imprint"><a href="https://www.t-systems.com/de/de/impressum">Impressum</a></p>
+  <p class="footer-font footer-imprint"><a href="${url.resourcesPath}/imprint.html" target="_blank">Impressum</a></p>
   <img class="footer-dp-logo" src="${url.resourcesPath}/img/data_protect.png">
-  <p class="footer-font footer-dp"><a href="https://www.t-systems.com/de/de/datenschutz">Datenschutz</a></p>
+  <p class="footer-font footer-dp"><a href="${url.resourcesPath}/dataprivacy.html" target="_blank">Datenschutz</a></p>
 </div>
 <table class="c19-logo">
   <tr>
