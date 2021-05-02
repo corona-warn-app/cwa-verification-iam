@@ -695,8 +695,6 @@
           <location name="/" handler="welcome-content"/>
           <http-invoker security-realm="ApplicationRealm"/>
           <filter-ref name="pragmaHeader"/>
-          <filter-ref name="adminAccess"/>
-          <filter-ref name="accountAccess"/>
         </host>
       </server>
       <servlet-container name="default" disable-caching-for-secured-pages="true">
@@ -706,6 +704,9 @@
       <handlers>
         <file name="welcome-content" path="${jboss.home.dir}/welcome-content"/>
       </handlers>
+     <filters>
+        <response-header name="pragmaHeader" header-name="Pragma" header-value="no-cache"/>
+      </filters> 
     </subsystem>
     <subsystem xmlns="urn:jboss:domain:weld:4.0"/>
   </profile>
