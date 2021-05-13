@@ -12,8 +12,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: environment
       run: |
-        export VERSION=$(git rev-parse --short ${GITHUB_SHA})
-        echo "VERSION=${VERSION}" >> $GITHUB_ENV
         export ARTIFACT_ID=$(basename `git rev-parse --show-toplevel`)
         echo "ARTIFACT_ID=${ARTIFACT_ID}" >> $GITHUB_ENV
         APP_SHA=$(git rev-parse --short ${GITHUB_SHA});
