@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - master
+    - feat/ci-tag-versioning
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,12 +14,21 @@ jobs:
       run: |
         export VERSION=$(git rev-parse --short ${GITHUB_SHA})
         echo "VERSION=${VERSION}" >> $GITHUB_ENV
+        export ARTIFACT_ID=$(basename `git rev-parse --show-toplevel`)
+        echo "ARTIFACT_ID=${ARTIFACT_ID}" >> $GITHUB_ENV
+        APP_SHA=$(git rev-parse --short ${GITHUB_SHA});
+        APP_REV=$(git rev-list --tags --max-count=1);
+        APP_TAG=$(git describe --tags ${APP_REV} 2> /dev/null || echo 0.0.0);
+        VERSION=${APP_TAG}-${APP_SHA};
+        echo "APP_SHA=${APP_SHA}" >> ${GITHUB_ENV};
+        echo "APP_TAG=${APP_TAG}" >> ${GITHUB_ENV};
+        echo "VERSION=${VERSION}" >> ${GITHUB_ENV};
     - name: docker build
       run: |
         docker build \
-        --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest \
-        --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:${VERSION} \
-        --tag ${TRUSTED_URL}/${TRUSTED_REPOSITORY}/cwa-verification-iam:${VERSION} \
+        --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam/${ARTIFACT_ID}:latest \
+        --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam/${ARTIFACT_ID}:${VERSION} \
+        --tag ${TRUSTED_URL}/${TRUSTED_REPOSITORY}/cwa-verification-iam/${ARTIFACT_ID}:${VERSION} \
         .
       env:
         TRUSTED_URL: ${{ secrets.TRUSTED_URL }}
@@ -26,8 +36,8 @@ jobs:
     - name: docker push github
       run: |
         echo ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY_OWNER} --password-stdin
-        docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest
-        docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:${VERSION}
+        docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam/${ARTIFACT_ID}:latest
+        docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam/S{ARTIFACT_ID}:${VERSION}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: docker push trusted
