@@ -36,8 +36,8 @@ jobs:
     - name: docker push github
       run: |
         echo ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY_OWNER} --password-stdin
-        docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam/${ARTIFACT_ID}:latest
-        docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam/S{ARTIFACT_ID}:${VERSION}
+        docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/${ARTIFACT_ID}:latest
+        docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/S{ARTIFACT_ID}:${VERSION}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: docker push trusted
