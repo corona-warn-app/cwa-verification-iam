@@ -1,4 +1,4 @@
-FROM jboss/keycloak:12.0.2
+FROM jboss/keycloak:12.0.4
 
 ARG WORK_DIR=/build
 WORKDIR ${WORK_DIR}
