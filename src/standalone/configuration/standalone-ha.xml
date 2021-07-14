@@ -121,7 +121,10 @@
         </handlers>
       </root-logger>
       <formatter name="PATTERN">
-        <pattern-formatter pattern="%d{yyyy-MM-dd'T'HH:mm:ssZ} %-5p [%t] %c[%i]: %m%n"/>
+        <pattern-formatter pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n"/>
+      </formatter>
+      <formatter name="COLOR-PATTERN">
+        <pattern-formatter pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n"/>
       </formatter>
     </subsystem>
     <subsystem xmlns="urn:jboss:domain:bean-validation:1.0"/>
