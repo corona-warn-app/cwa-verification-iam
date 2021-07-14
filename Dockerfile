@@ -14,6 +14,7 @@ RUN cp -r /opt/jboss/keycloak/themes/base/* /opt/jboss/keycloak/themes/quick-tes
 RUN cp -r ${WORK_DIR}/src/themes/quick-test/login /opt/jboss/keycloak/themes/quick-test/
 RUN cp -r ${WORK_DIR}/src/themes/quick-test/account /opt/jboss/keycloak/themes/quick-test/
 RUN cp ${WORK_DIR}/src/standalone/configuration/standalone-ha.xml /opt/jboss/keycloak/standalone/configuration/
+RUN cp ${WORK_DIR}/src/standalone/configuration/standalone-ha-qt.xml /opt/jboss/keycloak/standalone/configuration/
 
 EXPOSE 8080
 EXPOSE 8443
