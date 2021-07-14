@@ -89,20 +89,19 @@
   <profile>
     <subsystem xmlns="urn:jboss:domain:logging:8.0">
       <console-handler name="CONSOLE">
+        <level name="INFO"/>
         <formatter>
-          <named-formatter name="PATTERN"/>
+          <named-formatter name="COLOR-PATTERN"/>
         </formatter>
       </console-handler>
-      <size-rotating-file-handler name="FILE" autoflush="true">
-        <level name="${env.KEYCLOAK_LOGLEVEL:INFO}"/>
-        <file relative-to="jboss.server.log.dir" path="server.log"/>
-        <rotate-size value="500k"/>
-        <max-backup-index value="5"/>
-        <append value="true"/>
+      <periodic-rotating-file-handler name="FILE" autoflush="true">
         <formatter>
           <named-formatter name="PATTERN"/>
         </formatter>
-      </size-rotating-file-handler>
+        <file relative-to="jboss.server.log.dir" path="server.log"/>
+        <suffix value=".yyyy-MM-dd"/>
+        <append value="true"/>
+      </periodic-rotating-file-handler>
       <logger category="com.arjuna">
         <level name="WARN"/>
       </logger>
@@ -115,22 +114,8 @@
       <logger category="sun.rmi">
         <level name="WARN"/>
       </logger>
-      <logger category="org.keycloak">
-        <level name="${env.KEYCLOAK_LOGLEVEL:INFO}"/>
-        <handlers>
-          <handler name="CONSOLE"/>
-          <handler name="FILE"/>
-        </handlers>
-      </logger>
-      <logger category="org.keycloak.events">
-        <level name="${env.KEYCLOAK_LOGLEVEL:INFO}"/>
-        <handlers>
-          <handler name="CONSOLE"/>
-          <handler name="FILE"/>
-        </handlers>
-      </logger>
       <root-logger>
-        <level name="${env.KEYCLOAK_LOGLEVEL:INFO}"/>
+        <level name="INFO"/>
         <handlers>
           <handler name="CONSOLE"/>
         </handlers>
@@ -249,25 +234,6 @@
     </subsystem>
     <subsystem xmlns="urn:wildfly:elytron:13.0" final-providers="combined-providers"
                disallowed-providers="OracleUcrypto">
-      <tls>
-        <key-stores>
-          <key-store name="cwa-keystore-test">
-            <credential-reference clear-text="changeit"/>
-            <implementation type="JKS"/>
-            <file path="test-only-https-keystore.jks"
-                  relative-to="jboss.server.config.dir"/>
-          </key-store>
-        </key-stores>
-        <key-managers>
-          <key-manager name="cwa-key-manager-test" key-store="cwa-keystore-test">
-            <credential-reference clear-text="changeit"/>
-          </key-manager>
-        </key-managers>
-        <server-ssl-contexts>
-          <server-ssl-context name="cwa-ssl-context-test"
-                              key-manager="cwa-key-manager-test"/>
-        </server-ssl-contexts>
-      </tls>
       <providers>
         <aggregate-providers name="combined-providers">
           <providers name="elytron"/>
@@ -331,6 +297,7 @@
           <permission class-name="org.wildfly.transaction.client.RemoteTransactionPermission"
                       module="org.wildfly.transaction.client"/>
           <permission class-name="org.jboss.ejb.client.RemoteEJBPermission" module="org.jboss.ejb-client"/>
+          <permission class-name="org.jboss.ejb.client.RemoteEJBPermission" module="org.jboss.ejb-client"/>
         </permission-set>
       </permission-sets>
       <http>
@@ -375,7 +342,25 @@
         </mechanism-provider-filtering-sasl-server-factory>
         <provider-sasl-server-factory name="global"/>
       </sasl>
+      <tls>
+        <key-stores>
+          <key-store name="applicationKS">
+            <credential-reference clear-text="password"/>
+            <implementation type="JKS"/>
+            <file path="application.keystore" relative-to="jboss.server.config.dir"/>
+          </key-store>
+        </key-stores>
+        <key-managers>
+          <key-manager name="applicationKM" key-store="applicationKS" generate-self-signed-certificate-host="localhost">
+            <credential-reference clear-text="password"/>
+          </key-manager>
+        </key-managers>
+        <server-ssl-contexts>
+          <server-ssl-context name="applicationSSC" key-manager="applicationKM"/>
+        </server-ssl-contexts>
+      </tls>
     </subsystem>
+    <subsystem xmlns="urn:wildfly:health:1.0" security-enabled="false"/>
     <subsystem xmlns="urn:jboss:domain:infinispan:12.0">
       <cache-container name="ejb" default-cache="dist" aliases="sfsb" modules="org.wildfly.clustering.ejb.infinispan">
         <transport lock-timeout="60000"/>
@@ -686,13 +671,13 @@
         <https-listener name="https" socket-binding="https"
                         proxy-address-forwarding="${env.PROXY_ADDRESS_FORWARDING:false}"
                         enable-http2="true"
-                        ssl-context="cwa-ssl-context-test"/>
+                        ssl-context="applicationSSC"/>
         <http-listener name="http-admin" socket-binding="http-admin" redirect-socket="https"
                        proxy-address-forwarding="${env.PROXY_ADDRESS_FORWARDING:false}" enable-http2="true"/>
         <https-listener name="https-admin" socket-binding="https-admin"
                         proxy-address-forwarding="${env.PROXY_ADDRESS_FORWARDING:false}"
                         enable-http2="true"
-                        ssl-context="cwa-ssl-context-test"/>
+                        ssl-context="applicationSSC"/>
         <host name="default-host" alias="localhost">
           <location name="/" handler="welcome-content"/>
           <http-invoker security-realm="ApplicationRealm"/>
@@ -739,9 +724,9 @@
     <socket-binding name="https-admin" port="${jboss.admin.https.port:7443}"/>
     <socket-binding name="jgroups-mping" interface="private"
                     multicast-address="${jboss.default.multicast.address:230.0.0.4}" multicast-port="45700"/>
-    <socket-binding name="jgroups-tcp" interface="private" port="7600"/>
-    <socket-binding name="jgroups-tcp-fd" interface="private" port="57600"/>
-    <socket-binding name="jgroups-udp" interface="private" port="55200"
+    <socket-binding name="jgroups-tcp" port="7600"/>
+    <socket-binding name="jgroups-tcp-fd" port="57600"/>
+    <socket-binding name="jgroups-udp" port="55200"
                     multicast-address="${jboss.default.multicast.address:230.0.0.4}" multicast-port="45688"/>
     <socket-binding name="jgroups-udp-fd" interface="private" port="54200"/>
     <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
