@@ -64,7 +64,7 @@ jobs:
           --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest-qt \
           --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:${VERSION}-qt \
           --tag ${TRUSTED_URL}/${TRUSTED_REPOSITORY}/cwa-verification-iam:${VERSION}-qt \
-          -f ./Dockerfile-QT
+          -f ./Dockerfile-QT \
           .
         env:
           TRUSTED_URL: ${{ secrets.TRUSTED_URL }}
