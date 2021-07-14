@@ -118,6 +118,7 @@
         <level name="INFO"/>
         <handlers>
           <handler name="CONSOLE"/>
+          <handler name="FILE"/>
         </handlers>
       </root-logger>
       <formatter name="PATTERN">
@@ -689,7 +690,7 @@
           <filter-ref name="accountAccess"/>
         </host>
       </server>
-      <servlet-container name="default" disable-caching-for-secured-pages="true">
+      <servlet-container name="default">
         <jsp-config/>
         <websockets/>
       </servlet-container>
