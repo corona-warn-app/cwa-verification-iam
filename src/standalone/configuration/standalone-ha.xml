@@ -89,7 +89,7 @@
   <profile>
     <subsystem xmlns="urn:jboss:domain:logging:8.0">
       <console-handler name="CONSOLE">
-        <level name="DEBUG"/>
+        <level name="INFO"/>
         <formatter>
           <named-formatter name="COLOR-PATTERN"/>
         </formatter>
@@ -115,7 +115,7 @@
         <level name="WARN"/>
       </logger>
       <root-logger>
-        <level name="DEBUG"/>
+        <level name="INFO"/>
         <handlers>
           <handler name="CONSOLE"/>
           <handler name="FILE"/>
@@ -677,6 +677,9 @@
         <host name="default-host" alias="localhost">
           <location name="/" handler="welcome-content"/>
           <http-invoker security-realm="ApplicationRealm"/>
+          <filter-ref name="pragmaHeader"/>
+          <filter-ref name="adminAccess"/>
+          <filter-ref name="accountAccess"/>
         </host>
       </server>
       <servlet-container name="default">
@@ -686,6 +689,14 @@
       <handlers>
         <file name="welcome-content" path="${jboss.home.dir}/welcome-content"/>
       </handlers>
+      <filters>
+        <response-header name="pragmaHeader" header-name="Pragma" header-value="no-cache"/>
+        <expression-filter name="adminAccess"
+                           expression="path-prefix('/auth/admin') and not (equals(%p, 7080) or equals(%p, 7443)) -> response-code(403)"/>
+        <expression-filter name="accountAccess"
+                           expression="path-prefix('/auth/realms/cwa/account/totp') or path('/auth/realms/cwa/account')
+                           or path-prefix('/auth/realms/cwa/account/sessions') or path-prefix('/auth/realms/cwa/account/applications') -> response-code(403)"/>
+      </filters>
     </subsystem>
     <subsystem xmlns="urn:jboss:domain:weld:4.0"/>
   </profile>
