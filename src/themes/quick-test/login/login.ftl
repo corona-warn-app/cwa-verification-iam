@@ -24,21 +24,24 @@
 </div>
 
 <!-- BEGIN page specific content  -->
-<div class="text-big" style="top: 210px;">Anmeldung</div>
-<div class="text-bold" style="top: 290px;">Hier können Sie sich für die Verwaltung der Patienten Schnelltests anmelden.
+<div class="text-big" style="top: 160px;">Anmeldung</div>
+<div class="text-bold" style="top: 240px;">Hier können Sie sich für die Verwaltung der Patienten Schnelltests anmelden.
 </div>
-<div class="text" style="top: 340px;">Bitte melden Sie sich mit Ihrem Benutzernamen und Passwort an.
+<div class="text" style="top: 290px;">Bitte melden Sie sich mit Ihrem Benutzernamen und Passwort an.
   Halten Sie das mobile Endgerät bereit, auf dem Sie die
   FreeOTP Authenticator App installiert haben.
 </div>
+<div class="text-bold" style="top: 370px">
+  Bei technischen Problemen wenden Sie sich bitte Mo-So 6:00-20:00 an unsere Hotline unter +49 620 2274 3730
+</div>
 <form id="kc-form-login" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post">
-  <input class="input" style="top: 420px;" type="text" placeholder="Benutzername" name="username" required>
-  <input class="input" style="top: 480px;" type="password" placeholder="Passwort" name="password" autocomplete="off" required>
-  <input class="button" style="top: 540px;" type="submit" value="Anmelden">
+  <input class="input" style="top: 430px;" type="text" placeholder="Benutzername" name="username" required>
+  <input class="input" style="top: 490px;" type="password" placeholder="Passwort" name="password" autocomplete="off" required>
+  <input class="button" style="top: 550px;" type="submit" value="Anmelden">
 </form>
 
 <#if message?? && message.type = 'error'>
-  <div class="error" style="top: 600px;">Sie haben einen falschen Benutzernamen und/oder ein falsches Passwort eingegeben. Bitte versuchen sie es erneut oder wenden Sie sich an Ihren Administrator.</div>
+  <div class="error" style="top: 630px;">Sie haben einen falschen Benutzernamen und/oder ein falsches Passwort eingegeben. Bitte versuchen sie es erneut oder wenden Sie sich an Ihren Administrator.</div>
 </#if>
 <!-- END page specific content -->
 </body>
