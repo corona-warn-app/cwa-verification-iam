@@ -576,19 +576,11 @@
         <provider name="default" enabled="true"/>
       </spi>
       <spi name="hostname">
-        <default-provider>${keycloak.hostname.provider:default}</default-provider>
+        <default-provider>default</default-provider>
         <provider name="default" enabled="true">
           <properties>
             <property name="frontendUrl" value="${keycloak.frontendUrl:}"/>
             <property name="forceBackendUrlToFrontendUrl" value="false"/>
-          </properties>
-        </provider>
-        <provider name="fixed" enabled="true">
-          <properties>
-            <property name="hostname" value="${keycloak.hostname.fixed.hostname:localhost}"/>
-            <property name="httpPort" value="${keycloak.hostname.fixed.httpPort:-1}"/>
-            <property name="httpsPort" value="${keycloak.hostname.fixed.httpsPort:-1}"/>
-            <property name="alwaysHttps" value="${keycloak.hostname.fixed.alwaysHttps:false}"/>
           </properties>
         </provider>
       </spi>
@@ -685,9 +677,6 @@
         <host name="default-host" alias="localhost">
           <location name="/" handler="welcome-content"/>
           <http-invoker security-realm="ApplicationRealm"/>
-          <filter-ref name="pragmaHeader"/>
-          <filter-ref name="adminAccess"/>
-          <filter-ref name="accountAccess"/>
         </host>
       </server>
       <servlet-container name="default">
@@ -697,14 +686,6 @@
       <handlers>
         <file name="welcome-content" path="${jboss.home.dir}/welcome-content"/>
       </handlers>
-      <filters>
-        <response-header name="pragmaHeader" header-name="Pragma" header-value="no-cache"/>
-        <expression-filter name="adminAccess"
-                           expression="path-prefix('/auth/admin') and not (equals(%p, 7080) or equals(%p, 7443)) -> response-code(403)"/>
-        <expression-filter name="accountAccess"
-                           expression="path-prefix('/auth/realms/cwa/account/totp') or path('/auth/realms/cwa/account')
-                           or path-prefix('/auth/realms/cwa/account/sessions') or path-prefix('/auth/realms/cwa/account/applications') -> response-code(403)"/>
-      </filters>
     </subsystem>
     <subsystem xmlns="urn:jboss:domain:weld:4.0"/>
   </profile>
@@ -728,9 +709,9 @@
     <socket-binding name="https-admin" port="${jboss.admin.https.port:7443}"/>
     <socket-binding name="jgroups-mping" interface="private"
                     multicast-address="${jboss.default.multicast.address:230.0.0.4}" multicast-port="45700"/>
-    <socket-binding name="jgroups-tcp" port="7600"/>
-    <socket-binding name="jgroups-tcp-fd" port="57600"/>
-    <socket-binding name="jgroups-udp" port="55200"
+    <socket-binding name="jgroups-tcp" interface="private" port="7600"/>
+    <socket-binding name="jgroups-tcp-fd" interface="private" port="57600"/>
+    <socket-binding name="jgroups-udp" interface="private" port="55200"
                     multicast-address="${jboss.default.multicast.address:230.0.0.4}" multicast-port="45688"/>
     <socket-binding name="jgroups-udp-fd" interface="private" port="54200"/>
     <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
@@ -740,7 +721,7 @@
     <socket-binding name="txn-recovery-environment" port="4712"/>
     <socket-binding name="txn-status-manager" port="4713"/>
     <outbound-socket-binding name="mail-smtp">
-      <remote-destination host="localhost" port="25"/>
+      <remote-destination host="${jboss.mail.server.host:localhost}" port="${jboss.mail.server.port:25}"/>
     </outbound-socket-binding>
   </socket-binding-group>
 </server>
