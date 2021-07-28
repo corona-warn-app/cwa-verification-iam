@@ -25,17 +25,21 @@
 </div>
 
 <!-- BEGIN page specific content  -->
-<div class="text-big" style="top: 160px;">
+<div class="text-bold" style="top: 160px;">
     ${message.summary}
-</div>
-<div class="text-bold" style="top: 240px;">
     <#if requiredActions??>
-        <#list requiredActions>:
+  :
+  <#else>
+  </#if>
+</div>
+<div class="text-bold" style="top: 200px;">
+    <#if requiredActions??>
+        <#list requiredActions>
           <b><#items as reqActionItem>${msg("requiredAction.${reqActionItem}")}<#sep>, </#items></b></#list>
     <#else>
     </#if>
 </div>
-<div class="text-bold" style="top: 290px">
+<div class="text-bold" style="top: 250px">
     <#if skipLink??>
     <#else>
         <#if pageRedirectUri?has_content>
