@@ -27,8 +27,7 @@
 <!-- BEGIN page specific content  -->
 <div class="text-bold" style="top: 160px;">
     ${message.summary}
-    <#if requiredActions??>
-  :
+    <#if requiredActions??>:
   <#else>
   </#if>
 </div>
