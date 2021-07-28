@@ -24,7 +24,7 @@
 
 <!-- BEGIN page specific content  -->
 <div class="text-big" style="top: 210px;">Passwort zurücksetzen</div>
-<div class="text" style="top: 310px;">Geben Sie zum setzen eines neuen Passwortes unten Ihre E-Mail-Adresse ein.</div>
+<div class="text" style="top: 310px;">Geben Sie zum Setzen eines neuen Passwortes Ihre E-Mail-Adresse ein.</div>
 <form id="kc-reset-password-form" action="${url.loginAction}" method="post">
   <input type="text" id="username" name="username" placeholder="E-Mail" class="input" style="top: 350px;">
   <#if messagesPerField.existsError('username')>
@@ -33,7 +33,7 @@
     </span>
   </#if>
   <input class="button" style="top: 410px;" type="submit" value="Abschicken">
-  <div id="kc-form-options" class="text" style="top: 450px;" >
+  <div id="kc-form-options" class="text" style="top: 460px;" >
     <div class="${properties.kcFormOptionsWrapperClass!}">
       <span><a href="${url.loginUrl}">${kcSanitize(msg("backToLogin"))?no_esc}</a></span>
     </div>
