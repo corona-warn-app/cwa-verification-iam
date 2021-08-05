@@ -40,7 +40,7 @@
   <input class="button" style="top: 550px;" type="submit" value="Anmelden">
 
 </form>
-<a class="text" style="top: 630px;" href="${url.loginResetCredentialsUrl}">Passwort zurücksetzen</a>
+<a class="text" style="top: 630px;" href="${url.loginResetCredentialsUrl}">Passwort neu setzen</a>
 
 <#if message?? && message.type = 'error'>
   <div class="error" style="top: 630px;">Sie haben einen falschen Benutzernamen und/oder ein falsches Passwort eingegeben. Bitte versuchen sie es erneut oder wenden Sie sich an Ihren Administrator.</div>
