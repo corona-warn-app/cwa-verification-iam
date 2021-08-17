@@ -44,6 +44,11 @@
 	<br><br>Bitte korrigieren Sie Ihre Eingabe.
   </div>
 </#if>
+<#if message?? && message.type = 'success'>
+  <div class="success" style="top: 540px;">
+  Das Passwort wurde erfolgreich geändert. Sie können diese Seite jetzt schließen.
+  </div>
+</#if>
 <!-- END page specific content  -->
 </body>
 </html>
