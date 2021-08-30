@@ -20,7 +20,7 @@
     <table class="c19-logo">
       <tr>
         <td style="width: 1px;"><img src="${url.resourcesPath}/img/c-19_logo.png"></td>
-        <td>Schnelltest Portal</td>
+        <td>Schnelltestportal</td>
       </tr>
     </table>
 
