@@ -32,7 +32,7 @@
   <input class="input" style="top: 575px;" type="text" placeholder="Einmal-Passwort" name="totp" autocomplete="off"
          required>
   <input type="hidden" name="totpSecret" value="${totp.totpSecret}"/>
-  <input class="input" style="top: 635px;" type="text" placeholder="OTP Gerät" value="${totp.userLabel}" name="userLabel" autocomplete="off" required/>
+  <input class="input" style="top: 635px;" type="text" placeholder="OTP Gerät" name="userLabel" autocomplete="off" required/> 
   <input class="button" style="top: 695px;" type="submit" value="Abschicken">
 </form>
 <#if message?? && message.type = 'error'>
