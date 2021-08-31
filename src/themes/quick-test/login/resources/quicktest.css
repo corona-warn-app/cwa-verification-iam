@@ -134,6 +134,21 @@
 	border-color: #dddddd;
 }
 
+.radiobutton {
+	position: absolute;
+	left: 50%;
+	height: 45px;
+	line-height: 45px;
+	margin-left: -250px;
+	padding-left: 10px;
+	font-family: "Telegrotesk Next Regular";
+	font-size: 18px;
+	color: #262626;
+	border-width: 1px;
+	border-radius: 4px;
+	border-color: #dddddd;
+}
+
 .error {
 	position: fixed;
 	left: 50%;
@@ -212,6 +227,11 @@
 
 @media all and (max-width: 767px) {
   .input {
+    width: 90%;
+    left: 0;
+    margin-left: 2%;
+  }
+  .radiobutton {
     width: 90%;
     left: 0;
     margin-left: 2%;
