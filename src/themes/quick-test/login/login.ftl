@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="${url.resourcesPath}/quicktest.css"/>
-  <title>Schnelltest Portal</title>
+  <title>Schnelltestportal</title>
   <link rel="icon" href="${url.resourcesPath}/img/c-19_logo.png">
 </head>
 <body>
@@ -18,7 +18,7 @@
   <table class="c19-logo">
     <tr>
       <td style="width: 1px;"><img src="${url.resourcesPath}/img/c-19_logo.png"></td>
-      <td>Schnelltest Portal</td>
+      <td>Schnelltestportal</td>
     </tr>
   </table>
 </div>
