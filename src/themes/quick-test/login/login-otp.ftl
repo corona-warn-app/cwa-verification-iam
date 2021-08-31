@@ -26,6 +26,24 @@
 <div class="text" style="top: 320px;">Öffnen Sie bitte Ihre FreeOTP App und geben Sie das von der App erzeugte Einmal-Passwort für den Benutzer ein
 </div>
 <form id="kc-otp-login-form" action="${url.loginAction}" method="post">
+  <#if otpLogin.userOtpCredentials?size gt 1>
+      <div class="${properties.kcFormGroupClass!}">
+          <div class="radiobutton" style="top: 380px;">
+              <label>FreeOTP App:</label>
+              <#list otpLogin.userOtpCredentials as otpCredential>
+                  <input id="kc-otp-credential-${otpCredential?index}" class="${properties.kcLoginOTPListInputClass!}" type="radio" name="selectedCredentialId" value="${otpCredential.id}" <#if otpCredential.id == otpLogin.selectedCredentialId>checked="checked"</#if>>
+                  <label for="kc-otp-credential-${otpCredential?index}" class="${properties.kcLoginOTPListClass!}" tabindex="${otpCredential?index}">
+                      <span class="${properties.kcLoginOTPListItemHeaderClass!}">
+                          <span class="${properties.kcLoginOTPListItemIconBodyClass!}">
+                            <i class="${properties.kcLoginOTPListItemIconClass!}" aria-hidden="true"></i>
+                          </span>
+                          <span class="${properties.kcLoginOTPListItemTitleClass!}">${otpCredential.userLabel}</span>
+                      </span>
+                  </label>
+              </#list>
+          </div>
+      </div>
+  </#if>
   <input class="input" style="top: 430px;" placeholder="Einmal-Passwort" name="otp" autocomplete="off" type="text" autofocus/>
   <input class="button" style="top: 490px;" type="submit" name="login" value="Abschicken">
 </form>
