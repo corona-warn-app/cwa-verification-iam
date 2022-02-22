@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:16.1.1
+FROM quay.io/keycloak/keycloak:15.1.0
 
 ARG WORK_DIR=/build
 WORKDIR ${WORK_DIR}
