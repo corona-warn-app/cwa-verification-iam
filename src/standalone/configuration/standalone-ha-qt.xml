@@ -261,19 +261,6 @@
           <realm name="local" role-mapper="super-user-mapper"/>
         </security-domain>
       </security-domains>
-      <security-realms>
-        <identity-realm name="local" identity="$local"/>
-        <properties-realm name="ApplicationRealm">
-          <users-properties path="application-users.properties" relative-to="jboss.server.config.dir"
-                            digest-realm-name="ApplicationRealm"/>
-          <groups-properties path="application-roles.properties" relative-to="jboss.server.config.dir"/>
-        </properties-realm>
-        <properties-realm name="ManagementRealm">
-          <users-properties path="mgmt-users.properties" relative-to="jboss.server.config.dir"
-                            digest-realm-name="ManagementRealm"/>
-          <groups-properties path="mgmt-groups.properties" relative-to="jboss.server.config.dir"/>
-        </properties-realm>
-      </security-realms>
       <mappers>
         <simple-permission-mapper name="default-permission-mapper" mapping-mode="first">
           <permission-mapping>
