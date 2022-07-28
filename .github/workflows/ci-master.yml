@@ -8,6 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: sigstore/cosign-installer@main
       - uses: actions/checkout@v2
       - name: environment
         run: |
@@ -50,9 +51,21 @@ jobs:
           TRUSTED_REPOSITORY: ${{ secrets.TRUSTED_REPOSITORY }}
           TRUSTED_USER: ${{ secrets.TRUSTED_USER }}
           TRUSTED_TOKEN: ${{ secrets.TRUSTED_TOKEN }}
+      - name: docker push new mtr
+        run: |
+          echo ${MTR_TOKEN} | docker login ${MTR_REPOSITORY} -u ${MTR_USER} --password-stdin
+          docker push ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION}
+          cosign sign --key env://MTR_PRIVATE_KEY ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION}
+        env:
+          MTR_REPOSITORY: ${{ secrets.MTR_REPOSITORY }}
+          MTR_USER: ${{ secrets.MTR_USER }}
+          MTR_TOKEN: ${{ secrets.MTR_TOKEN }}
+          MTR_PRIVATE_KEY: ${{ secrets.MTR_PRIVATE_KEY }}
+          COSIGN_PASSWORD: ${{ secrets.MTR_PRIVATE_KEY_PASSWORD }}
   build-qt:
     runs-on: ubuntu-latest
     steps:
+      - uses: sigstore/cosign-installer@main
       - uses: actions/checkout@v2
       - name: environment
         run: |
@@ -96,3 +109,14 @@ jobs:
           TRUSTED_REPOSITORY: ${{ secrets.TRUSTED_REPOSITORY }}
           TRUSTED_USER: ${{ secrets.TRUSTED_USER }}
           TRUSTED_TOKEN: ${{ secrets.TRUSTED_TOKEN }}
+      - name: docker push new mtr
+        run: |
+          echo ${MTR_TOKEN} | docker login ${MTR_REPOSITORY} -u ${MTR_USER} --password-stdin
+          docker push ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION}-qt
+          cosign sign --key env://MTR_PRIVATE_KEY ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION}-qt
+        env:
+          MTR_REPOSITORY: ${{ secrets.MTR_REPOSITORY }}
+          MTR_USER: ${{ secrets.MTR_USER }}
+          MTR_TOKEN: ${{ secrets.MTR_TOKEN }}
+          MTR_PRIVATE_KEY: ${{ secrets.MTR_PRIVATE_KEY }}
+          COSIGN_PASSWORD: ${{ secrets.MTR_PRIVATE_KEY_PASSWORD }}
