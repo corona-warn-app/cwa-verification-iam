@@ -10,9 +10,8 @@ ENV KC_CACHE_STACK=kubernetes
 
 ENV KC_DB=postgres
 
-RUN \
-  cp -r src/themes/cwa /opt/keycloak/themes/cwa && \
-  cp -r src/themes/quick-test /opt/keycloak/themes/quick-test
+COPY src/themes/cwa /opt/keycloak/themes/cwa
+COPY src/themes/quick-test /opt/keycloak/themes/quick-test
 
 RUN /opt/keycloak/bin/kc.sh build
 
