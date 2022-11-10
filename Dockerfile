@@ -1,25 +1,25 @@
-FROM quay.io/keycloak/keycloak:15.1.0
+FROM quay.io/keycloak/keycloak:20.0.1 as builder
 
-ARG WORK_DIR=/build
-WORKDIR ${WORK_DIR}
+WORKDIR /opt/keycloak
 
-COPY . ${WORK_DIR}/
+ENV KC_HEALTH_ENABLED=true
+ENV KC_METRICS_ENABLED=false
 
-RUN mkdir /opt/jboss/keycloak/themes/cwa && \
-    mkdir /opt/jboss/keycloak/themes/quick-test && \
-    cp -r /opt/jboss/keycloak/themes/base/* /opt/jboss/keycloak/themes/cwa/ && \
-    cp -r ${WORK_DIR}/src/themes/cwa/login /opt/jboss/keycloak/themes/cwa/ && \
-    cp -r ${WORK_DIR}/src/themes/cwa/account /opt/jboss/keycloak/themes/cwa/ && \
-    cp -r /opt/jboss/keycloak/themes/base/* /opt/jboss/keycloak/themes/quick-test/ && \
-    cp -r ${WORK_DIR}/src/themes/quick-test/login /opt/jboss/keycloak/themes/quick-test/ && \
-    cp -r ${WORK_DIR}/src/themes/quick-test/account /opt/jboss/keycloak/themes/quick-test/ && \
-    cp ${WORK_DIR}/src/standalone/configuration/standalone-ha.xml /opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
+ENV KC_CACHE=ispn
+ENV KC_CACHE_STACK=kubernetes
 
-EXPOSE 8080
+ENV KC_DB=postgres
+
+RUN \
+  cp -r src/themes/cwa /opt/keycloak/themes/cwa && \
+  cp -r src/themes/quick-test /opt/keycloak/themes/quick-test
+
+RUN /opt/keycloak/bin/kc.sh build
+
+FROM quay.io/keycloak/keycloak:20.0.1
+COPY --from=builder /opt/keycloak/ /opt/keycloak/
+
 EXPOSE 8443
-EXPOSE 7080
-EXPOSE 7443
 
-ENTRYPOINT [ "/opt/jboss/tools/docker-entrypoint.sh" ]
-
-CMD ["-b", "0.0.0.0"]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
+CMD ["start", "--optimized"]
