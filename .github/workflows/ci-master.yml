@@ -54,9 +54,9 @@ jobs:
       - name: docker build
         run: |
           docker build \
-          --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:ADMIN-latest \
-          --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:ADMIN-${VERSION} \
-          --tag ${MTR_REPOSITORY}/cwa-verification-iam:ADMIN-${VERSION} \
+          --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest-ADMIN \
+          --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:${VERSION}-ADMIN \
+          --tag ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION}-ADMIN \
           --build-arg IAM_FLAVOUR=admin \
           .
         env:
@@ -64,15 +64,15 @@ jobs:
       - name: docker push github
         run: |
           echo ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY_OWNER} --password-stdin
-          docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:ADMIN-latest
-          docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:ADMIN-${VERSION}
+          docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest-ADMIN
+          docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:${VERSION}-ADMIN
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: docker push mtr
         run: |
           echo ${MTR_TOKEN} | docker login ${MTR_REPOSITORY} -u ${MTR_USER} --password-stdin
-          docker push ${MTR_REPOSITORY}/cwa-verification-iam:ADMIN-${VERSION}
-          cosign sign --key env://MTR_PRIVATE_KEY ${MTR_REPOSITORY}/cwa-verification-iam:ADMIN-${VERSION}
+          docker push ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION}-ADMIN
+          cosign sign --key env://MTR_PRIVATE_KEY ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION}-ADMIN
         env:
           MTR_REPOSITORY: ${{ secrets.MTR_REPOSITORY }}
           MTR_USER: ${{ secrets.MTR_USER }}
