@@ -9,7 +9,7 @@ ENV KC_FEATURES_ENABLED=admin2,admin-api
 FROM base-image as builder-public
 ENV KC_FEATURES_DISABLED=admin,admin2,admin-api
 
-FROM builder-${IAM-FLAVOUR:public} as builder
+FROM builder-${IAM_FLAVOUR:-public} as builder
 WORKDIR /opt/keycloak
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=false
