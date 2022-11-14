@@ -20,7 +20,7 @@ jobs:
           --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest \
           --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:${VERSION} \
           --tag ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION} \
-          --build-arg IAM-FLAVOUR=public \
+          --build-arg IAM_FLAVOUR=public \
           .
         env:
           MTR_REPOSITORY: ${{ secrets.MTR_REPOSITORY }}
@@ -57,7 +57,7 @@ jobs:
           --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:ADMIN-latest \
           --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:ADMIN-${VERSION} \
           --tag ${MTR_REPOSITORY}/cwa-verification-iam:ADMIN-${VERSION} \
-          --build-arg IAM-FLAVOUR=admin \
+          --build-arg IAM_FLAVOUR=admin \
           .
         env:
           MTR_REPOSITORY: ${{ secrets.MTR_REPOSITORY }}
