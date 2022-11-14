@@ -19,7 +19,7 @@ jobs:
           docker build \
           --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest \
           --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:${VERSION} \
-          --tag ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION}
+          --tag ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION} \
           --build-arg IAM-FLAVOUR=public \
           .
         env:
