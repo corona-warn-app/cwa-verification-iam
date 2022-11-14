@@ -1,4 +1,4 @@
-ARG IAM_FLAVOUR=public
+ARG IAM_FLAVOUR
 FROM quay.io/keycloak/keycloak:20.0.1 as base-image
 
 # Enables Features for Admin Flavour of IAM Image
@@ -9,7 +9,7 @@ ENV KC_FEATURES_ENABLED=admin2,admin-api
 FROM base-image as builder-public
 ENV KC_FEATURES_DISABLED=admin,admin2,admin-api
 
-FROM builder-${IAM-FLAVOUR} as builder
+FROM builder-${IAM-FLAVOUR:public} as builder
 WORKDIR /opt/keycloak
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=false
