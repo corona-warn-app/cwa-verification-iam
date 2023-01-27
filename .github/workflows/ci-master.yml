@@ -5,7 +5,7 @@ on:
     branches:
       - master
 jobs:
-  build:
+  build-public:
     runs-on: ubuntu-latest
     steps:
       - uses: sigstore/cosign-installer@main
@@ -20,6 +20,7 @@ jobs:
           --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest \
           --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:${VERSION} \
           --tag ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION} \
+          --build-arg IAM_FLAVOUR=public \
           .
         env:
           MTR_REPOSITORY: ${{ secrets.MTR_REPOSITORY }}
@@ -41,7 +42,7 @@ jobs:
           MTR_TOKEN: ${{ secrets.MTR_TOKEN }}
           MTR_PRIVATE_KEY: ${{ secrets.MTR_PRIVATE_KEY }}
           COSIGN_PASSWORD: ${{ secrets.MTR_PRIVATE_KEY_PASSWORD }}
-  build-qt:
+  build-admin:
     runs-on: ubuntu-latest
     steps:
       - uses: sigstore/cosign-installer@main
@@ -53,25 +54,25 @@ jobs:
       - name: docker build
         run: |
           docker build \
-          --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest-qt \
-          --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:${VERSION}-qt \
-          --tag ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION}-qt \
-          -f ./Dockerfile-QT \
+          --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest-ADMIN \
+          --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:${VERSION}-ADMIN \
+          --tag ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION}-ADMIN \
+          --build-arg IAM_FLAVOUR=admin \
           .
         env:
           MTR_REPOSITORY: ${{ secrets.MTR_REPOSITORY }}
       - name: docker push github
         run: |
           echo ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY_OWNER} --password-stdin
-          docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest-qt
-          docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:${VERSION}-qt
+          docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:latest-ADMIN
+          docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/cwa-verification-iam:${VERSION}-ADMIN
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: docker push mtr
         run: |
           echo ${MTR_TOKEN} | docker login ${MTR_REPOSITORY} -u ${MTR_USER} --password-stdin
-          docker push ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION}-qt
-          cosign sign --key env://MTR_PRIVATE_KEY ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION}-qt
+          docker push ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION}-ADMIN
+          cosign sign --key env://MTR_PRIVATE_KEY ${MTR_REPOSITORY}/cwa-verification-iam:${VERSION}-ADMIN
         env:
           MTR_REPOSITORY: ${{ secrets.MTR_REPOSITORY }}
           MTR_USER: ${{ secrets.MTR_USER }}
