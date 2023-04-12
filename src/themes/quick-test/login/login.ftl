@@ -35,7 +35,7 @@
   Bei technischen Problemen wenden Sie sich bitte Mo-So 6:00-20:00 an unsere Hotline unter +49 620 2274 3730
 </div>
 <form id="kc-form-login" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post">
-  <input class="input" style="top: 430px;" type="text" placeholder="Benutzername" name="username" required>
+  <input class="input" style="top: 430px;" type="text" placeholder="Benutzername / Ihre Email-Adresse" name="username" required>
   <input class="input" style="top: 490px;" type="password" placeholder="Passwort" name="password" autocomplete="off" required>
   <input class="button" style="top: 550px;" type="submit" value="Anmelden">
 
