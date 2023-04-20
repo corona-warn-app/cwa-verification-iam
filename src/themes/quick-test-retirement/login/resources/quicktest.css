@@ -81,10 +81,7 @@
 }
 
 .text-big {
-	position: absolute;
-	left: 50%;
-	width: 400px;
-	margin-left: -200px;
+	position: relative;
 	text-align: center;
 	font-family: "Telegrotesk Next Thin";
 	font-size: 48px;
