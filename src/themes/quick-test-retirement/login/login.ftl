@@ -25,10 +25,9 @@
 
 <!-- BEGIN page specific content  -->
 <div class="text-big" style="top: 160px;">Keine Anmeldung mehr möglich</div>
-<div class="text-bold" style="top: 240px;">Die Anmelung für die Verwaltung der Patienten Schnelltests auf diesem Testsystem
-  ist nach der Vertragskündigung nicht mehr möglich.
+<div class="text-bold" style="top: 240px;">Die Anmelung für die Verwaltung von Schnelltests auf dem Schulungssystem ist nach Vertragsende nicht mehr möglich.
 </div>
-<div class="text-bold" style="top: 290px;">Die Benutzerzugänge auf diesem Testsystem wurden deaktiviert.
+<div class="text-bold" style="top: 290px;">Die Benutzerzugänge auf dem Schulungssystem wurden deaktiviert.
 </div>
 <div class="text-bold" style="top: 370px">
   Die technische Hotline steht nur noch Nutzern des Produktiv Systems zur Verfügung.
