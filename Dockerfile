@@ -1,5 +1,5 @@
 ARG IAM_FLAVOUR=public
-FROM quay.io/keycloak/keycloak:21.0.2 as base-image
+FROM quay.io/keycloak/keycloak:21.1.0 as base-image
 
 # Enables Features for Admin Flavour of IAM Image
 FROM base-image as builder-admin
