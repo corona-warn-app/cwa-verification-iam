@@ -24,7 +24,7 @@
 </div>
 
 <!-- BEGIN page specific content  -->
-<div class="text-bold" style="top: 160px;">Keine Anmeldung mehr möglich</div>
+<div class="text-bold blink" style="top: 160px;">Keine Anmeldung mehr möglich</div>
 <div class="text" style="top: 240px;">Die Anmeldung für die Verwaltung von Schnelltests auf dem Schulungssystem ist nach Vertragsende nicht mehr möglich.
 </div>
 <div class="text" style="top: 310px;">Die Benutzerzugänge auf dem Schulungssystem wurden deaktiviert.
