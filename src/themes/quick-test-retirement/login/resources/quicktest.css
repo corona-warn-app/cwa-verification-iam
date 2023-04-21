@@ -222,6 +222,13 @@
   z-index: 99;
 }
 
+.blink {
+    animation-name: animation_blink;
+    animation-timing-function: ease-in;
+    animation-duration: 2s; 
+    animation-iteration-count: 2;
+}
+
 @media all and (max-width: 767px) {
   .input {
     width: 90%;
@@ -266,13 +273,6 @@
 @font-face {
   font-family: 'Telegrotesk Next Bold';
   src: url('telegrotesknext-bold.woff');
-}
-
-.blink {
-    animation-name: animation_blink;
-    animation-timing-function: ease-in;
-    animation-duration: 2s; 
-    animation-iteration-count: 2.5;
 }
 
 @keyframes animation_blink {
